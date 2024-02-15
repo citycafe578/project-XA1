@@ -1,12 +1,11 @@
 import pygame
-import numpy as np
+import variable
 pygame.init()
 
-a = np.zeros(shape=4)
+
 # This is a simple class that will help us print to the screen.
 # It has nothing to do with the joysticks, just outputting the
 # information.
-
 class TextPrint:
     def __init__(self):
         self.reset()
@@ -113,7 +112,8 @@ def main():
 
             for i in range(axes):
                 axis = joystick.get_axis(i)
-                a[i] = int("{axis:>6.3f}")
+                text_print.tprint(screen, f"Axis {i} value: {axis:>6.3f}")
+                variable.data[i] = axis
             text_print.unindent()
 
             buttons = joystick.get_numbuttons()
@@ -146,6 +146,7 @@ def main():
 
 
 if __name__ == "__main__":
+    data = (0, 0, 0, 0)
     main()
     # If you forget this line, the program will 'hang'
     # on exit if running from IDLE.
