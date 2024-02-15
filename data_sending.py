@@ -3,8 +3,10 @@ import time      #import time library
 import spidev
 from lib_nrf24 import NRF24   #import NRF24 library
 import joystick
+import variable
 
 GPIO.setmode(GPIO.BCM)       # set the gpio mode
+
   # set the pipe address. this address shoeld be entered on the receiver alo
 pipes = [[0xE0, 0xE0, 0xF1, 0xF1, 0xE0], [0xF1, 0xF1, 0xF0, 0xF0, 0xE0]]
 radio = NRF24(GPIO, spidev.SpiDev())   # use the gpio pins
@@ -20,18 +22,21 @@ radio.enableAckPayload()
 
 radio.openWritingPipe(pipes[0])     # open the defined pipe for writing
 radio.printDetails()      # print basic detals of radio
+sendMessage[4] = 0
 
-sendMessage = list("Hi..Arduino UNO")  #the message to be sent
+
 while len(sendMessage) < 32:    
     sendMessage.append(0)
 
 while True:
+    variable.var()
+    sendMessage = variable.data
     start = time.time()      #start the time for checking delivery time
     radio.write(sendMessage)   # just write the message to radio
     print("Sent the message: {}".format(sendMessage))  # print a message after succesfull send
-    radio.startListening()        # Start listening the radio  
+    radio.startListening()        # Start listening the radio
     joystick.main()
-
+    
     while not radio.available(0):
         time.sleep(1/100)
         if time.time() - start > 2:
