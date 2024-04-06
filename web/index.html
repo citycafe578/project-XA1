@@ -1,27 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class = "bar" id = "medias" >
-        <div id = "videos" class = "upsite">
-            <video id="video_data" autoplay></video>
-        </div>
-        <div id = "map" class = "upsite">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>test</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="bar" id="medias">
+            <div id="videos" class="upsite">
+                <video id="video_data" autoplay></video>
+            </div>
+            <div id="map" class="upsite">
 
+            </div>
         </div>
-    </div>
-    <div class = "bar" id = "digital_data">
-        <div class="bar" id="AOA_div">
-            <img src="./imgs/speed.png" alt="speed picture" class="AOAsystem" id="speed" />
-            <img src="./imgs/AOA1.png" alt="roll picture" class="AOAsystem" id="roll" />
-            <img src="./imgs/depression.png" alt="depression picture" class="AOAsystem" id="depression" />
+        <div class="bar" id="digital_data">
+            <div class="bar" id="AOA_div">
+                <img
+                    src="./imgs/speed.png"
+                    alt="speed picture"
+                    class="AOAsystem"
+                    id="speed"
+                    style="
+                    margin-left: 25px;
+                    width: 300%;
+                    height: 300%;
+                    transform: translate(0px, var(--now_site));
+                    "
+                />
+                <img
+                src="./imgs/AOA1.png"
+                alt="roll picture"
+                class="AOAsystem"
+                id="roll"
+                style="width: 100%; height: 100%; margin-left: 10px"
+                />
+                <img
+                src="./imgs/depression.png"
+                alt="depression picture"
+                class="AOAsystem"
+                id="depression"
+                style="width: 300%; height: 300%"
+                />
+            </div>
         </div>
-    </div>
     <script src="script.js"></script>
-</body>
+    </body>
 </html>

@@ -1,55 +1,39 @@
 :root {
-    --now_site: 0px;
-    display: flex;
+  --now_site: 0px;
+  display: flex;
 }
-body, html{
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+body,
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #medias {
-    display: flex;
-    width: 100%;
-    height: 75%;
+  display: flex;
+  width: 100%;
+  height: 75%;
 }
-#video_data{
-    width: 60%;
-    height: 100%;
+#video_data {
+  width: 60%;
+  height: 100%;
 }
-#map{
-    width: 40%;
-    height: 100%;
+#map {
+  width: 40%;
+  height: 100%;
 }
-#digital_data{
-    display: flex;
-    width: 100%; 
-    height: 25%; 
-    overflow: hidden;
-    justify-content: center; 
+#digital_data {
+  display: flex;
+  width: 100%;
+  height: 25%;
+  overflow: hidden;
+  justify-content: center;
 }
 #AOA_div {
-    display: flex;
-    width: auto;
-    height: 100%;
-    overflow: hidden;
-    align-items: center;
-}
-#speed {
-    margin-left: 25px;
-    width: 300%;
-    height: 300%;
-    transform: translate(0px, var(--now_site));
-}
-
-#roll {
-    width: 100%;
-    height: 100%;
-    margin-left: 10px;
-}
-#depression {
-    width: 300%;
-    height: 300%;
-
+  display: flex;
+  width: auto;
+  height: 100%;
+  overflow: hidden;
+  align-items: center;
 }
