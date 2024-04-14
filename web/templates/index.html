@@ -12,7 +12,26 @@
             <video id="video_data" autoplay></video>
         </div>
         <div id="map" class="upsite">
+            <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+            <script>
+                let map;
 
+                function initMap() {
+                    map = new google.maps.Map(document.getElementById("map"), {
+                        center: { lat: -34.397, lng: 150.644 },
+                        zoom: 8,
+                    });
+                }
+            </script>
+        let map;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+            });
+        }
+    </script>
         </div>
     </div>
     <div class="bar" id="digital_data">
@@ -22,18 +41,28 @@
                 alt="speed picture"
                 class="AOAsystem"
                 id="speed"
+                style="
+                    width: 25%;
+                "
             />
             <img
                 src="{{ url_for('static', filename='imgs/AOA1.png') }}"
                 alt="roll picture"
                 class="AOAsystem center"
                 id="roll"
+                style="
+                    width: 40%;
+                    height: 40%;
+                "
             />
             <img
                 src="{{ url_for('static', filename='imgs/depression.png') }}"
                 alt="depression picture"
                 class="AOAsystem"
                 id="depression"
+                style="
+                    width: 30%;
+                "
             />
         </div>
     </div>
