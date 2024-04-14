@@ -37,6 +37,9 @@ html {
   height: 25%;
   justify-content: center;
   align-items: center;
+  background-color:rgb(174, 173, 173);
+  border-radius: 50px;
+  transform: scale(0.975);
 }
 
 .images-container {
