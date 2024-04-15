@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>test</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" /> <!-- 注意这里的样式表路径 -->
 </head>
+
 <body>
     <div class="bar" id="medias">
         <div id="videos" class="upsite">
             <video id="video_data" autoplay></video>
         </div>
         <div id="map" class="upsite">
-            <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async
+                defer></script>
             <script>
                 let map;
 
@@ -23,49 +26,53 @@
                     });
                 }
             </script>
-        let map;
+            let map;
 
-        function initMap() {
+            function initMap() {
             map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: -34.397, lng: 150.644 },
-                zoom: 8,
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 8,
             });
-        }
-    </script>
+            }
+            </script>
         </div>
     </div>
+
     <div class="bar" id="digital_data">
         <div id="images_container" class="images-container">
-            <img
-                src="{{ url_for('static', filename='imgs/speed.png') }}"
-                alt="speed picture"
-                class="AOAsystem"
-                id="speed"
-                style="
+            <img src="{{ url_for('static', filename='imgs/speed.png') }}" alt="speed picture" class="AOAsystem item"
+                id="speed" style="
                     width: 25%;
-                "
-            />
-            <img
-                src="{{ url_for('static', filename='imgs/AOA1.png') }}"
-                alt="roll picture"
-                class="AOAsystem center"
-                id="roll"
-                style="
+                " />
+            <img src="{{ url_for('static', filename='imgs/AOA1.png') }}" alt="roll picture" class="AOAsystem center item"
+                id="roll" style="
                     width: 40%;
                     height: 40%;
+                " />
+            <img src="{{ url_for('static', filename='imgs/depression.png') }}" alt="depression picture"
+                class="AOAsystem item" id="depression" style="
+                    width: 30%;
+                " />
+        </div>
+        <div class = "bar" id = course>
+            <img
+                src = "{{ url_for('static', filename='imgs/plane_sign.png') }}" alt = "course photo" class="item" id="plane_sign" 
+                style = "
+                    transform: scale(0.4);
+                    position: absolute;
+                    top: 50px; left: -10px;
                 "
             />
             <img
-                src="{{ url_for('static', filename='imgs/depression.png') }}"
-                alt="depression picture"
-                class="AOAsystem"
-                id="depression"
-                style="
-                    width: 30%;
+                src = "{{ url_for('static', filename='imgs/航向.png') }}" alt = "course photo" class="item" id="course_photo"
+                style = "
+                    width: 75%;
                 "
             />
         </div>
     </div>
+
     <script src="{{ url_for('static', filename='script.js') }}"></script> <!-- 注意这里的脚本路径 -->
 </body>
+
 </html>
