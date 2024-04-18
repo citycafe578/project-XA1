@@ -17,15 +17,15 @@
 // });
 
 //從這邊開始就是chat gpt 給的
-document.addEventListener("DOMContentLoaded", function() {
-    const videoElement = document.getElementById('videoElement');
+// document.addEventListener("DOMContentLoaded", function() {
+//     const videoElement = document.getElementById('videoElement');
 
-    // 获取用户媒体，启动摄像头
-    navigator.mediaDevices.getUserMedia({ video: { url: 'http://yourIPAddress:5000/video' } })
-    .then(function(stream) {
-        videoElement.srcObject = stream;
-    })
-    .catch(function(error) {
-        console.error('Error accessing the webcam:', error);
-    });
-});
+//     // 获取用户媒体，启动摄像头
+//     navigator.mediaDevices.getUserMedia({ video: { url: 'http://192.168.0.106/' } })
+//     .then(function(stream) {
+//         videoElement.srcObject = stream;
+//     })
+//     .catch(function(error) {
+//         console.error('Error accessing the webcam:', error);
+//     });
+// });
