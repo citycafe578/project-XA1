@@ -11,9 +11,7 @@
 <body>
     <div class="bar" id="medias">
         <div id="videos" class="upsite">
-            <video id="video_data" width="640" height="480" autoplay>
-                <source src="http://192.168.0.106/" type="video/mp4">
-            </video>
+            <!-- <img id="stream" src="http://192.168.0.106:81/stream" crossorigin="anonymous"> -->
         </div>
         <div id="map" class="upsite">
             <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async
@@ -57,7 +55,7 @@
                 " />
         </div>
         <div class = "bar" id = course>
-            <img
+            <!-- <img
                 src = "{{ url_for('static', filename='imgs/plane_sign.png') }}" alt = "course photo" class="item" id="plane_sign" 
                 style = "
                     transform: scale(0.4);
@@ -74,7 +72,33 @@
                     right: 200px;
                     bottom: 30px;
                 "
-            />
+            /> -->
+        </div>
+        <div class = "bar" id = cam_btn>
+            <div>
+                <a>Flash Light</a>
+                <label class= "switch"  id = "light">
+                    <input type = "checkbox" class = "toggleSwitch">
+                    <span class = "slider"></span>
+                </label>
+            </div>
+            
+
+            <div>
+                <a>FPS</a>
+                <label class= "switch"  id = "FPS">
+                    <input type = "checkbox" class = "toggleSwitch">
+                    <span class = "slider"></span>
+                </label>
+            </div>
+
+            <div>
+                <a>Gray Scale</a>
+                <label class= "switch"  id = "gray_scale">
+                    <input type = "checkbox" class = "toggleSwitch">
+                    <span class = "slider"></span>
+                </label>
+            </div>
         </div>
     </div>
 
