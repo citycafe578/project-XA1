@@ -1,104 +1,32 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESP32-CAM 直播</title>
-</head>
-<body>
-    <h1>ESP32-CAM 直播</h1>
-    <div>
-        <img id="stream" src="http://192.168.0.106:81/stream" crossorigin="anonymous">
-    </div>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Switch Button</title>
-<style>
-/* 按鈕外框樣式 */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-/* 按鈕圓形樣式 */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* 控制器樣式 */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-  border-radius: 34px;
-}
-
-/* 滑塊樣式 */
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-  border-radius: 50%;
-}
-
-/* 按下按鈕時，切換樣式 */
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-/* 按下按鈕時，切換滑塊位置 */
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-</style>
+<title>Fetch Example</title>
 </head>
 <body>
+  <button id="send_request_btn">Send Request</button>
 
-<label class="switch">
-  <input type="checkbox" id="toggleSwitch">
-  <span class="slider"></span>
-</label>
+  <script>
+    const sendRequestBtn = document.getElementById('send_request_btn');
 
-<script>
-const toggleSwitch = document.getElementById('toggleSwitch');
-
-// 監聽開關按鈕的變化
-toggleSwitch.addEventListener('change', function() {
-  if (this.checked) {
-    // 如果開關按鈕被打開
-    console.log('Switch is ON');
-    // 在這裡加入您想要執行的代碼
-  } else {
-    // 如果開關按鈕被關閉
-    console.log('Switch is OFF');
-    // 在這裡加入您想要執行的代碼
-  }
-});
-</script>
-
+    // 当按钮被点击时触发
+    sendRequestBtn.addEventListener('click', () => {
+      // 向 http://192.168.0.106/ 发送 GET 请求，使用 CORS 模式
+      fetch('http://192.168.0.106/', {
+        mode: 'no-cors'
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch data');
+          }
+          console.log('Response from server:', response);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    });
+  </script>
 </body>
 </html>

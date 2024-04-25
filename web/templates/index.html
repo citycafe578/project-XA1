@@ -75,24 +75,31 @@
             /> -->
         </div>
         <div class = "bar" id = cam_btn>
-            <div>
-                <a>Flash Light</a>
+            <div class = "btn_and_word">
+                <a>Web Cam</a>
+                <label class= "switch"  id = "webcam">
+                    <input type = "checkbox" class = "toggleSwitch">
+                    <span class = "slider"></span>
+                </label>
+            </div>
+            
+            <div class = "btn_and_word">
+                <a>Light</a>
                 <label class= "switch"  id = "light">
                     <input type = "checkbox" class = "toggleSwitch">
                     <span class = "slider"></span>
                 </label>
             </div>
             
-
-            <div>
-                <a>FPS</a>
+            <div class = "btn_and_word">
+                <a>High FPS</a>
                 <label class= "switch"  id = "FPS">
                     <input type = "checkbox" class = "toggleSwitch">
                     <span class = "slider"></span>
                 </label>
             </div>
 
-            <div>
+            <div class = "btn_and_word">
                 <a>Gray Scale</a>
                 <label class= "switch"  id = "gray_scale">
                     <input type = "checkbox" class = "toggleSwitch">
@@ -102,7 +109,7 @@
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script> <!-- 注意这里的脚本路径 -->
-</body>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
 
 </html>
