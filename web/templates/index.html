@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" /> <!-- 注意这里的样式表路径 -->
 </head>
 
-<body>
+<body onload="startTime()">
     <div class="bar" id="medias">
         <div id="videos" class="upsite">
-            <img id="stream" src="http://192.168.0.106:81/stream" crossorigin="anonymous">
+            <!-- <img id="stream" src="http://192.168.0.106:81/stream" crossorigin="anonymous"> -->
         </div>
         <div id="map" class="upsite">
             <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async
@@ -39,6 +39,7 @@
     </div>
 
     <div class="bar" id="digital_data">
+        <div id = "clock"></div>
         <div id="images_container" class="images-container">
             <img src="{{ url_for('static', filename='imgs/speed.png') }}" alt="speed picture" class="AOAsystem item"
                 id="speed" style="
@@ -58,7 +59,7 @@
             <img
                 src = "{{ url_for('static', filename='imgs/航向.png') }}" alt = "course photo" class="item" id="course_photo"
                 style = "
-                    width: 10%;
+                    object-fit: contain;
                 "
             />
         </div>

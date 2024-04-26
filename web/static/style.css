@@ -66,6 +66,16 @@ html {
   flex-direction: row;
 }
 
+/* 時鐘 */
+#clock{
+  display: flex;
+  width: 25%;
+  height: 80%;
+  background-color:rgb(103, 102, 102);
+  border-radius: 50px;
+}
+
+/* HUD */
 .images-container {
   display: flex;
   width: 20%;
@@ -84,8 +94,11 @@ html {
   margin-right: auto;
 }
 
+/* 羅盤 */
 #course{
   display: flex;
+  width: 20%;
+  height: 80%;
   overflow: hidden;
 
 }
@@ -95,9 +108,10 @@ html {
   border-radius: 50px;
   transform: scale(0.975);
   display: flex;
-  width: 20%;
+  width: 25%;
   height: 80%;
   flex-direction: column;
+  object-fit: contain;
 }
 
 .btn_and_word {
