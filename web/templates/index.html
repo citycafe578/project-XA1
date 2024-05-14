@@ -40,10 +40,11 @@
 
     <div class="bar" id="digital_data">
         <div id = "clock"></div>
-        <div id="images_container" class="images-container">
+
+        <div id="system_container">
             <img src="{{ url_for('static', filename='imgs/speed.png') }}" alt="speed picture" class="AOAsystem item"
                 id="speed" style="
-                    width: 25%;
+                    max-width:15%;
                 " />
             <img src="{{ url_for('static', filename='imgs/AOA1.png') }}" alt="roll picture" class="AOAsystem center item"
                 id="roll" style="
@@ -52,7 +53,7 @@
                 " />
             <img src="{{ url_for('static', filename='imgs/depression.png') }}" alt="depression picture"
                 class="AOAsystem item" id="depression" style="
-                    width: 30%;
+                    max-width: 23%;
                 " />
         </div>
         <div class = "bar" id = course>
