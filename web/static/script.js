@@ -12,6 +12,21 @@ webcam.addEventListener("change", function() {
     }
 });
 
+var recording = document.getElementById("recording");
+var temp = false;
+recording.addEventListener("click", function(){
+    if(!temp){
+        this.classList.add("recording");
+        this.innerText = "紀錄中";
+        temp = true;
+    }else{
+        this.innerText = "開始記錄";
+        this.classList.remove("recording");
+        temp = false;
+    }
+})
+
+
 function startTime(){
     var today = new Date();
     var hh = today.getHours();

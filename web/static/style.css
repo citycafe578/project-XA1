@@ -113,6 +113,13 @@ html {
   transition: 0.5s;
 }
 
+
+
+.recording {
+  color: red;
+}
+
+
 /* HUD */
 #system_container {
   display: flex;
