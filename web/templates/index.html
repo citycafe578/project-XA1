@@ -47,21 +47,26 @@
                 <button class = "clock_btn">飛行紀錄</button>
             </div>
         </div>
-        
+        <img
+                src = "{{ url_for('static', filename='imgs/temp_pic.png') }}" alt = "course photo" class="item" id="course_photo"
+                style = "
+                    object-fit: contain;
+                "
+            />
 
         <div id="system_container">
             <img src="{{ url_for('static', filename='imgs/speed.png') }}" alt="speed picture" class="AOAsystem item"
                 id="speed" style="
-                    max-width:15%;
+                    max-width:20%;
                 " />
             <img src="{{ url_for('static', filename='imgs/AOA1.png') }}" alt="roll picture" class="AOAsystem center item"
                 id="roll" style="
-                    width: 40%;
-                    height: 40%;
+                    width: 50%;
+                    height: 50%;
                 " />
             <img src="{{ url_for('static', filename='imgs/depression.png') }}" alt="depression picture"
                 class="AOAsystem item" id="depression" style="
-                    max-width: 23%;
+                    max-width: 28%;
                 " />
         </div>
         <div class = "bar" id = course>
