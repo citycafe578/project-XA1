@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>test</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" /> <!-- 注意这里的样式表路径 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='floating_window.css') }}">
 </head>
 
 <body onload="startTime()">
@@ -121,6 +122,14 @@
                 <option>Spider</option>
                 <option>Goldfish</option>
             </select>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <div id = "float_map">
+                <p>123</p>
+            </div>
+            <div id = "float_data">
+                <p>123</p>
+            </div>
         </div>
     </dialog>
 </body>
