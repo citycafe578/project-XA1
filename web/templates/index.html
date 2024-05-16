@@ -26,15 +26,6 @@
                     });
                 }
             </script>
-            let map;
-
-            function initMap() {
-            map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: -34.397, lng: 150.644 },
-            zoom: 8,
-            });
-            }
-            </script>
         </div>
     </div>
 
@@ -116,9 +107,22 @@
         </div>
     </div>
 
-    <div id = "record_page">
-        <a>安安</a>
-    </div>
+    <dialog id="record_page" class="modal">
+        <div class="modal-content">
+            <span id = "close">×</span>
+            <p>這是記錄頁面的彈出視窗！</p>
+            <input type="date">
+            <select>
+                <option>請選擇你最愛的寵物</option>
+                <option>Dog</option>
+                <option>Cat</option>
+                <option>Hamster</option>
+                <option>Parrot</option>
+                <option>Spider</option>
+                <option>Goldfish</option>
+            </select>
+        </div>
+    </dialog>
 </body>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 

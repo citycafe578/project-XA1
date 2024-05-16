@@ -12,6 +12,7 @@ webcam.addEventListener("change", function() {
     }
 });
 
+// 紀錄中
 var recording = document.getElementById("recording");
 var temp = false;
 recording.addEventListener("click", function(){
@@ -26,14 +27,20 @@ recording.addEventListener("click", function(){
     }
 })
 
+// 新視窗
 const record = document.getElementById("record");
 const recordpage = document.getElementById("record_page");
+const close = document.getElementById("close")
 record.addEventListener("click", function() {
     console.log("go into record page");
-    recordpage.style.display = "block";
+    recordpage.showModal();
 });
 
+close.addEventListener("click", function(){
+    recordpage.close();
+})
 
+// 時鐘
 function startTime(){
     var today = new Date();
     var hh = today.getHours();
