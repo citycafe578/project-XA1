@@ -113,7 +113,14 @@ html {
   transition: 0.5s;
 }
 
-
+#record_page{
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% 從上方和自動水平對齊 */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* 寬度 */
+  z-index: 1;
+}
 
 .recording {
   color: red;

@@ -1,23 +1,25 @@
+/* 彈出視窗的基本樣式 */
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
+  display: none; /* 預設為隱藏 */
+  position: fixed; /* 固定位置 */
+  z-index: 1; /* 確保它在頁面上其他元素之上 */
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  width: 100%; /* 覆蓋整個視窗 */
+  height: 100%; /* 覆蓋整個視窗 */
+  background-color: rgba(0,0,0,0.4); /* 半透明背景 */
 }
 
+/* 彈出視窗內容的樣式 */
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: 15% auto; /* 垂直居中 */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 80%; /* 寬度 */
 }
 
+/* 關閉按鈕的樣式 */
 .close {
   color: #aaa;
   float: right;

@@ -26,6 +26,13 @@ recording.addEventListener("click", function(){
     }
 })
 
+const record = document.getElementById("record");
+const recordpage = document.getElementById("record_page");
+record.addEventListener("click", function() {
+    console.log("go into record page");
+    recordpage.style.display = "block";
+});
+
 
 function startTime(){
     var today = new Date();
