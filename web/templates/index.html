@@ -109,7 +109,7 @@
     </div>
 
     <dialog id="record_page" class="modal">
-        <div class="modal-content">
+        <div id="modal-content">
             <span id = "close">×</span>
             <p>這是記錄頁面的彈出視窗！</p>
             <input type="date">
@@ -123,13 +123,19 @@
                 <option>Goldfish</option>
             </select>
         </div>
-        <div style="display: flex; align-items: center; flex-direction: row;">
-            <div id = "float_data">
+        <div style="display: flex; justify-content: space-between; width: 100%; height: 75%;">
+            <div id = "float_data" style="display: flex; flex-direction: column;">
                 <p>TIME</p>
-                <p>COURSE</p>
-                <p>DEPRESSION</p>
-                <P>PRESSURE ALTITUDE</P>
-                <p>RELATIVE ALTITUDE</p>
+                <div style="display: flex; align-items: center; flex-direction: row;">
+                    <div id = "left" class="LRdata">
+                        <p class="top">COURSE</p>
+                        <P class="botton">PRESSURE ALTITUDE</P>
+                    </div>
+                    <div id = "right" class="LRdata">
+                        <p class="top">DEPRESSION</p>
+                        <p class="botton">RELATIVE ALTITUDE</p>
+                    </div>
+                </div>
                 <p>COORDINATE</p>
             </div>
             <div id = "float_map">

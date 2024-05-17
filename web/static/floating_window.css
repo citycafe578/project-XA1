@@ -7,7 +7,13 @@
     height: 80%;
     z-index: 1;
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
 
+#modal-content{
+    height: 25%;
+    width: auto;
 }
 
 #close{
@@ -18,12 +24,32 @@
 #float_data{
     background-color: rgb(103, 102, 102);
     min-height: 80%;
-    width: 45%;
+    width: 47%;
     border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items:  stretch;
 }
+
+.LRdata{
+    width: 50%;
+    min-height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.top{
+    margin-top: auto;
+}
+
+.bottom{
+    margin-bottom: auto;
+}
+
 #float_map{
     background-color: rgb(103, 102, 102);
     min-height: 80%;
-    width: 45%;
+    width: 47%;
     border-radius: 20px;
 }
