@@ -4,9 +4,11 @@ import threading
 import joystick
 
 def send_data(ser):
+    print("starting...")
+    time.sleep(2)
     try:
         while True:
-            data_to_send = joystick_data.run()
+            data_to_send = joystick_reader.run()
             message = ' '.join([str(data) for data in data_to_send])
             message += '\n'
             ser.write(message.encode('utf-8'))
