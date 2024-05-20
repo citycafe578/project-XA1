@@ -20,6 +20,13 @@ recording.addEventListener("click", function(){
         this.classList.add("recording");
         this.innerText = "紀錄中";
         temp = true;
+        fetch('http://127.0.0.1:5000/record')
+        .then(function(response) {
+            return response.json();
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+        });
     }else{
         this.innerText = "開始記錄";
         this.classList.remove("recording");
