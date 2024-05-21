@@ -1,36 +1,38 @@
-const webcam = document.getElementById("webcam")
+// const webcam = document.getElementById("webcam")
 // const light = document.getElementById("light")
 // const FPS = document.getElementById("FPS")
 // const gray_scale = document.getElementById("gray_scale")
-const image = document.getElementById("stream"); 
-const imageUrl = "{{ image_url }}";
-webcam.addEventListener("change", function() {
-    if (this.checked) {
-        image.src = "http://192.168.0.106:81/stream";
-    } else {
-        image.src = imageUrl;
-    }
-});
+// const image = document.getElementById("stream"); 
+// const imageUrl = "{{ image_url }}";
+// webcam.addEventListener("change", function() {
+//     if (this.checked) {
+//         image.src = "http://192.168.0.106:81/stream";
+//     } else {
+//         image.src = imageUrl;
+//     }
+// });
 
 // 紀錄中
 var recording = document.getElementById("recording");
 var temp = false;
 recording.addEventListener("click", function(){
-    if(!temp){
+    if (!recording) {
         this.classList.add("recording");
         this.innerText = "紀錄中";
-        temp = true;
+        recording = true;
         fetch('http://127.0.0.1:5000/record')
-        .then(function(response) {
-            return response.json();
-        })
-        .catch(function(error) {
-            console.error('Error:', error);
-        });
-    }else{
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert("File created successfully at " + data.file_path);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    } else {
         this.innerText = "開始記錄";
         this.classList.remove("recording");
-        temp = false;
+        recording = false;
     }
 })
 
