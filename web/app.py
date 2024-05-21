@@ -14,8 +14,7 @@ def home():
 def record():
     now = datetime.datetime.now()
     name = f"{now.date()}_{now.strftime('%H-%M-%S')}.txt"
-    path = os.path.join('record', name)
-    os.makedirs(os.path.dirname(path), exist_ok=True)
+    path = f"web/record/{name}"
     with open(path, 'w') as file:
         file.write('這是檔案的內容。')
 
