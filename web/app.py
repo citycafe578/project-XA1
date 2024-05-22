@@ -1,8 +1,8 @@
 from flask import Flask, render_template, redirect, url_for, jsonify
 import os
 import sqlite3
-import time
 import datetime
+import update
 app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
@@ -16,10 +16,15 @@ def record():
     name = f"{now.date()}_{now.strftime('%H-%M-%S')}.txt"
     path = f"web/record/{name}"
     with open(path, 'w') as file:
-        file.write('這是檔案的內容。')
-
+        file.write('start')
+        update.update(path)
     return jsonify(success = True, message = "File created successfully", file_path=path)
 
+
+@app.route("/stop_record", methods = ['GET'])
+def stop_record():
+    update.stop_update()
+    return jsonify(success = True, message = "File stop successfully")
 
 if __name__ == "__main__":
     app.run(debug = True)

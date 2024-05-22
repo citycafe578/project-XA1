@@ -33,6 +33,15 @@ recording.addEventListener("click", function(){
         this.innerText = "開始記錄";
         this.classList.remove("recording");
         recording = false;
+        fetch('http://127.0.0.1:5000/stop_record')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert("File stop successfully at ");
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 })
 
