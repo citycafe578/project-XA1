@@ -7,7 +7,7 @@ stop_record = threading.Event()
 def update(path):
     if path == "stop":
         file.close()
-        exit()
+        stop_update()
     with open(path, 'a') as file:
         while True:
             file.write('start')

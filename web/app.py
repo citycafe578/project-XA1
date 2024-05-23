@@ -17,6 +17,7 @@ def record():
     path = f"web/record/{name}"
     with open(path, 'w') as file:
         file.write('start')
+        file.close()
         update.update(path)
     return jsonify(success = True, message = "File created successfully", file_path=path)
 

@@ -16,10 +16,10 @@
 var recording = document.getElementById("recording");
 var temp = false;
 recording.addEventListener("click", function(){
-    if (!recording) {
+    if (!temp) {
         this.classList.add("recording");
         this.innerText = "紀錄中";
-        recording = true;
+        temp = true;
         fetch('http://127.0.0.1:5000/record')
             .then(response => response.json())
             .then(data => {
@@ -32,7 +32,7 @@ recording.addEventListener("click", function(){
     } else {
         this.innerText = "開始記錄";
         this.classList.remove("recording");
-        recording = false;
+        temp = false;
         fetch('http://127.0.0.1:5000/stop_record')
             .then(response => response.json())
             .then(data => {
