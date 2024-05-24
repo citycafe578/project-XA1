@@ -37,7 +37,7 @@ recording.addEventListener("click", function(){
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
-                alert("File stop successfully at ");
+                alert("File stop successfully");
             })
             .catch(error => {
                 console.error('Error:', error);
