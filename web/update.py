@@ -6,26 +6,20 @@ update_thread = None
 stop_record = threading.Event()
 
 def update(path):
-    if path == "stop":
-        file.close()
-        stop_update()
     with open(path, 'a') as file:
-        while True:
+        while not stop_record.is_set():
             now = datetime.datetime.now()
-            file.write(now.strftime('%H-%M-%S'))
-            file.write('\n')
+            file.write(now.strftime('%H-%M-%S') + '\n')
             file.flush()
             time.sleep(1)
 
-def start_thread(path):
-    global update_thread, stop_record
+def start_thread(file_path):
+    global update_thread
     stop_record.clear()
-    update_thread = threading.Thread(target = update, args = (path))
+    update_thread = threading.Thread(target=update, args=(file_path,))
     update_thread.start()
 
 def stop_update():
-    global stop_record
     stop_record.set()
-
-    if update_thread == True:
-        update_thread.join
+    if update_thread is not None:
+        update_thread.join()
