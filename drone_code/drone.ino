@@ -15,7 +15,7 @@ Adafruit_BMP280 bmp;
 Servo alien;
 int alien_pin = 14;
 TinyGPS gps;
-HardwareSerial gpsSer ial(2);  // Use UART2
+HardwareSerial gpsSerial(2);  // Use UART2
 
 int data[4] = {};
 RF24 radio(17, 5); // CE, CSN 引脚
