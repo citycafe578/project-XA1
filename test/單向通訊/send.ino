@@ -8,7 +8,7 @@ String received_text;
 void setup() {
     Serial.begin(9600);
     while (!Serial);
-        if (!radio.begin()) {
+    if (!radio.begin()) {
         Serial.println("Radio hardware is not responding!");
         while (1);
     }
@@ -26,7 +26,6 @@ void loop() {
         Serial.print("Sending: ");
         Serial.println(data);
         radio.write(&sendData, sizeof(sendData));
-        
     }
     delay(200);
 }

@@ -47,20 +47,18 @@ void nrf_receive_Task(void *pvParam) {
         index++;
         token = strtok(NULL, " ");
       }
-      
-      // Serial.print("Received data: ");
-      // for (int i = 0; i < 4; i++) {
-      //   Serial.print(data[i]);
-      //   Serial.print(" ");
-      // }
 
       data[3] = map(data[3], 0, 1999, 0, 180);
       alien.write(data[0]);
       ht.write(data[1]);
       vt.write(data[2]);
       motor.write(data[3]);
-
     }
+    for (int i = 0; i < 4; i++) {
+      Serial.print(data[i]);
+      Serial.print(" ");
+    }
+    Serial.println("");
     vTaskDelay(200 / portTICK_PERIOD_MS);
   }
 }
@@ -70,6 +68,7 @@ void i2c_Task(void *pvParam) {
   while (1) {
     readAccelerometer();
     readBMP();
+    vTaskDelay(500 / portTICK_PERIOD_MS);
   }
 }
 
@@ -93,8 +92,8 @@ void gps_Task(void *pvParam) {
 
       latitude = (flat == TinyGPS::GPS_INVALID_F_ANGLE ? 0.0 : flat);
       longitude = (flon == TinyGPS::GPS_INVALID_F_ANGLE ? 0.0 : flon);
-      vTaskDelay(500 / portTICK_PERIOD_MS);
     }
+    vTaskDelay(500 / portTICK_PERIOD_MS);
   }
 }
 
@@ -104,20 +103,26 @@ void setup() {
     Serial.println("Radio hardware is not responding!");
     while (1);
   }
-  radio.openReadingPipe(address);
+  radio.openReadingPipe(1, address);
   radio.setPALevel(RF24_PA_MAX);
   alien.attach(servo_pins[0]);
   ht.attach(servo_pins[1]);
   vt.attach(servo_pins[2]);
   motor.attach(servo_pins[3]);
   Wire.begin(SDA, SCL);
+
+  if (!bmp.begin(BMP280_add)) {
+    Serial.println("Could not find a valid BMP280 sensor, check wiring!");
+    while (1);
+  }
+
   initAccelerometer();
   gpsSerial.begin(4800, SERIAL_8N1, 14, 12);
   delay(100);
 
   xTaskCreatePinnedToCore(nrf_receive_Task, "nrf_receive_Task", 2048, NULL, 1, NULL, 1);
   xTaskCreatePinnedToCore(i2c_Task, "i2c_Task", 2048, NULL, 1, NULL, 1);
-  xTaskCreatePinnedToCore(gps_Task, "gps_Task", 1024, NULL, 1, NULL, 1);
+  xTaskCreatePinnedToCore(gps_Task, "gps_Task", 2048, NULL, 1, NULL, 1);
 
   Serial.println("Receiver ready.");
 }
@@ -142,8 +147,14 @@ void readAccelerometer() {
     y = Wire.read() | (Wire.read() << 8);
     z = Wire.read() | (Wire.read() << 8);
   }
+  Serial.print(x);
+  Serial.print(" ");
+  Serial.print(y);
+  Serial.print(" ");
+  Serial.println(z);
 }
 
 void readBMP() {
   altitude = bmp.readAltitude();
+  Serial.println(altitude);
 }
