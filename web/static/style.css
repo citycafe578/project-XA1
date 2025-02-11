@@ -118,6 +118,12 @@ html {
   color: red;
 }
 
+/* 高度計 */
+#autitude_bar{
+  width: 20%;
+  height: 100%;
+  background-color: aqua;
+}
 
 /* HUD */
 #system_container {
