@@ -2,6 +2,11 @@
   --now_site: 0px;
   display: flex;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 body,
 html {
   height: 100%;
@@ -9,6 +14,7 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 *, *::before, *::after {
@@ -55,14 +61,13 @@ html {
 #digital_data {
   display: flex;
   width: 100%;
-  height: 30%;
-  /* justify-content: space-evenly; */
+  height: 30%;  
   align-items: center;
   background-color:rgb(174, 173, 173);
   border-radius: 20px;
   transform: scale(0.975);
-  /* justify-content: space-between; */
-  padding: 0 10%;
+  justify-content:space-around;
+  padding: 0 1%;
   flex-direction: row;
 }
 
@@ -119,10 +124,29 @@ html {
 }
 
 /* 高度計 */
-#autitude_bar{
+#altitude_bar{
   width: 20%;
-  height: 100%;
-  background-color: aqua;
+  height: 80%;
+}
+
+.altitude{
+  width: 100%;
+  height: 50%;
+  color: rgb(103, 102, 102);
+  font-family: Arial, sans-serif;
+  justify-content: center;
+}
+
+.altitude_num{
+  display: flex;
+  justify-content: center;
+  font-size: 150%;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  font-weight: 800;
+  color: rgb(103, 102, 102);
+  height: 40%;
+  width: auto;
 }
 
 /* HUD */

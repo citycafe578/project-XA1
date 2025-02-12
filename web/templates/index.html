@@ -49,8 +49,19 @@
                     overflow: hidden;
                 "
             /> -->
-        <div id = autitude_bar>
-            
+        <div id = altitude_bar>
+            <div id = up_altitude class = altitude>
+                <a>  RELATIVE ALTITUDE</a>
+                <div class = altitude_num>
+                    <a>19999</a>
+                </div>
+            </div>
+            <div id = down_altitude class= altitude>
+                <a>  SATELLITE ALTITUDE:</a>
+                <div class = altitude_num>
+                    <a>19999</a>
+                </div>
+            </div>
         </div>
 
         <div id="system_container">
@@ -96,14 +107,6 @@
             <div class = "btn_and_word">
                 <a>High FPS</a>
                 <label class= "switch"  id = "FPS">
-                    <input type = "checkbox" class = "toggleSwitch">
-                    <span class = "slider"></span>
-                </label>
-            </div>
-
-            <div class = "btn_and_word">
-                <a>Gray Scale</a>
-                <label class= "switch"  id = "gray_scale">
                     <input type = "checkbox" class = "toggleSwitch">
                     <span class = "slider"></span>
                 </label>
