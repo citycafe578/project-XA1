@@ -47,7 +47,7 @@ html {
 }
 
 #map {
-  width: 40%;
+  width: 100%;
   height: 100%;
   background-color:rgb(174, 173, 173);
   border-radius: 20px;

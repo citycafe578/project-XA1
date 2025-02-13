@@ -7,6 +7,12 @@
     <title>test</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='floating_window.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""></script>
 </head>
 
 <body onload="startTime()">
@@ -15,17 +21,19 @@
             <!-- <img id="stream" src="http://192.168.0.106:81/stream" crossorigin="anonymous"> -->
         </div>
         <div id="map" class="upsite">
-            <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async
-                defer></script>
             <script>
-                let map;
-
-                function initMap() {
-                    map = new google.maps.Map(document.getElementById("map"), {
-                        center: { lat: -34.397, lng: 150.644 },
-                        zoom: 8,
-                    });
-                }
+                var map = L.map('map').setView([51.505, -0.09], 13);
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                }).addTo(map);
+                map.locate({
+                    setView: true,
+                    watch: true,
+                    maxZoom: 18,
+                    enableHighAccuracy: true,
+                    timeout: 10000
+                });
             </script>
         </div>
     </div>
