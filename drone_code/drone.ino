@@ -21,7 +21,7 @@ int servo_pins[4] = {2, 0, 4, 16};
 TinyGPS gps;
 HardwareSerial gpsSerial(2);
 RF24 radio(17, 5);
-const byte address[][6] = {"00001", "00002"};
+const byte address[6] = "00001";
 
 String send;
 int16_t x = 0;
