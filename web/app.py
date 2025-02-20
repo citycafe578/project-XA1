@@ -3,6 +3,10 @@ from fastapi import FastAPI, WebSocket
 import datetime
 import update
 import os
+import sys
+
+sys.path.append('../sending')
+import main
 
 app = Flask(__name__)
 path = None
@@ -32,7 +36,11 @@ def stop_record():
 def get_file():
     file_path = "web/record"
     files = os.listdir(file_path)
-    return jsonify(files) 
+    return jsonify(files)
+
+@app.route("/get_received_data", methods = ['GET'])
+def get_received_data():
+    return jsonify(main.received_data)
 
 if __name__ == "__main__":
     app.run(debug=True)

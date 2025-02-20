@@ -6,6 +6,8 @@ import joystick
 import pymysql
 from datetime import datetime
 
+received_data = []
+
 def send_data(ser):
     try:
         while True:
@@ -24,6 +26,7 @@ def receive_data(ser):
             if ser.in_waiting > 0:
                 receive_message = ser.readline().decode('utf-8').strip()
                 print(f"Received: {receive_message}")
+                received_data.append(receive_message)
         
     except KeyboardInterrupt:
         print("Serial closed")
@@ -41,11 +44,10 @@ send_thread.daemon = True
 receive_thread.daemon = True
 send_thread.start()
 receive_thread.start()
-receive_thread.start()
 
 try:
     while True:
         time.sleep(1)
 except KeyboardInterrupt:
     print("Serial closed")
-
+    ser.close()
