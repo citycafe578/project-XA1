@@ -18,18 +18,34 @@ def send_data(ser):
         print("Serial closed")
         ser.close()
 
-
+def receive_data(ser):
+    try:
+        while True:
+            if ser.in_waiting > 0:
+                receive_message = ser.readline().decode('utf-8').strip()
+                print(f"Received: {receive_message}")
         
+    except KeyboardInterrupt:
+        print("Serial closed")
+        ser.close()
 
-        
 joystick_data = joystick.Joysticker()  
 ser = serial.Serial("/dev/ttyUSB0", 9600, timeout=1.0)
 time.sleep(1)
 print("Serial ok")
 
 send_thread = threading.Thread(target=send_data, args=(ser,))
+receive_thread = threading.Thread(target=receive_data, args=(ser,))
 
 send_thread.daemon = True
+receive_thread.daemon = True
 send_thread.start()
 receive_thread.start()
+receive_thread.start()
+
+try:
+    while True:
+        time.sleep(1)
+except KeyboardInterrupt:
+    print("Serial closed")
 
