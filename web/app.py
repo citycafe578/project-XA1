@@ -4,8 +4,8 @@ import update
 import os
 import sys
 
-sys.path.append('../sending')
-import main
+# sys.path.append('../sending')
+# import main
 
 app = Flask(__name__)
 path = None
