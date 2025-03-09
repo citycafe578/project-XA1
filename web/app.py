@@ -2,6 +2,10 @@ from flask import Flask, render_template, jsonify, request
 import datetime
 import update
 import os
+import sys
+
+sys.path.append('../sending')
+import main
 
 app = Flask(__name__)
 path = None
@@ -32,6 +36,7 @@ def stop_record():
 def get_file():
     file_path = os.path.join("web", "record")
     files = os.listdir(file_path)
+    return jsonify(files)
     return jsonify(files)
 
 @app.route("/get_file_content", methods=['POST'])
