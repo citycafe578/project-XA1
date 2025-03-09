@@ -17,9 +17,9 @@
 
 <body onload="startTime()">
     <div class="bar" id="medias">
-        <div id="videos" class="upsite">
-            <!-- <img id="stream" src="http://192.168.0.106:81/stream" crossorigin="anonymous"> -->
-        </div>
+        <!-- <div id="videos" class="upsite">
+            <img id="stream" src="http://192.168.0.106:81/stream" crossorigin="anonymous">
+        </div> -->
         <div id="map" class="upsite">
             <script>
                 var map = L.map('map').setView([51.505, -0.09], 13);
@@ -39,84 +39,55 @@
     </div>
 
     <div class="bar" id="digital_data">
-        <div id = "clock_bar">
-            <div id = "clock"></div>
-
-            <div id = clock_btn_bar>
-                <button class = "clock_btn" id = "recording">開始記錄</button>
-                <button class = "clock_btn" id = "record">飛行紀錄</button>
+        <div id="clock_bar">
+            <div id="clock"></div>
+            <div id="clock_btn_bar">
+                <button class="clock_btn" id="recording">開始記錄</button>
+                <button class="clock_btn" id="record">飛行紀錄</button>
             </div>
         </div>
-        <!-- <img
-                src = "{{ url_for('static', filename='imgs/temp_pic.png') }}" alt = "course photo" class="item" id="course_photo"
-                style = "
-                    object-fit: contain;
-                    display: flex;
-                    width: 20%;
-                    height: 80%;
-                    overflow: hidden;
-                "
-            /> -->
-        <div id = altitude_bar>
-            <div id = up_altitude class = altitude>
-                <a>  RELATIVE ALTITUDE</a>
-                <div class = altitude_num>
+        <div id="altitude_bar">
+            <div id="up_altitude" class="altitude">
+                <a>RELATIVE ALTITUDE</a>
+                <div class="altitude_num">
                     <a>19999</a>
                 </div>
             </div>
-            <div id = down_altitude class= altitude>
-                <a>  SATELLITE ALTITUDE:</a>
-                <div class = altitude_num>
+            <div id="down_altitude" class="altitude">
+                <a>SATELLITE ALTITUDE:</a>
+                <div class="altitude_num">
                     <a>19999</a>
                 </div>
             </div>
         </div>
-
         <div id="system_container">
-            <img src="{{ url_for('static', filename='imgs/speed.png') }}" alt="speed picture" class="AOAsystem item"
-                id="speed" style="
-                    max-width:20%;
-                " />
-            <img src="{{ url_for('static', filename='imgs/AOA1.png') }}" alt="roll picture" class="AOAsystem center item"
-                id="roll" style="
-                    width: 50%;
-                    height: 50%;
-                " />
-            <img src="{{ url_for('static', filename='imgs/depression.png') }}" alt="depression picture"
-                class="AOAsystem item" id="depression" style="
-                    max-width: 28%;
-                " />
+            <img src="{{ url_for('static', filename='imgs/speed.png') }}" alt="speed picture" class="AOAsystem item" id="speed" />
+            <img src="{{ url_for('static', filename='imgs/AOA1.png') }}" alt="roll picture" class="AOAsystem center item" id="roll" />
+            <img src="{{ url_for('static', filename='imgs/depression.png') }}" alt="depression picture" class="AOAsystem item" id="depression" />
         </div>
-        <div class = "bar" id = course>
-            <img
-                src = "{{ url_for('static', filename='imgs/航向.png') }}" alt = "course photo" class="item" id="course_photo"
-                style = "
-                    object-fit: contain;
-                "
-            />
+        <div class="bar" id="course">
+            <img src="{{ url_for('static', filename='imgs/航向.png') }}" alt="course photo" class="item" id="course_photo" />
         </div>
-        <div class = "bar" id = cam_btn>
-            <div class = "btn_and_word">
+        <div id="cam_btn">
+            <div class="btn_and_word">
                 <a>Web Cam</a>
-                <label class= "switch"  id = "webcam">
-                    <input type = "checkbox" class = "toggleSwitch">
-                    <span class = "slider"></span>
+                <label class="switch" id="webcam">
+                    <input type="checkbox" class="toggleSwitch">
+                    <span class="slider"></span>
                 </label>
             </div>
-            
-            <div class = "btn_and_word">
+            <div class="btn_and_word">
                 <a>Light</a>
-                <label class= "switch"  id = "light">
-                    <input type = "checkbox" class = "toggleSwitch">
-                    <span class = "slider"></span>
+                <label class="switch" id="light">
+                    <input type="checkbox" class="toggleSwitch">
+                    <span class="slider"></span>
                 </label>
             </div>
-            
-            <div class = "btn_and_word">
+            <div class="btn_and_word">
                 <a>High FPS</a>
-                <label class= "switch"  id = "FPS">
-                    <input type = "checkbox" class = "toggleSwitch">
-                    <span class = "slider"></span>
+                <label class="switch" id="FPS">
+                    <input type="checkbox" class="toggleSwitch">
+                    <span class="slider"></span>
                 </label>
             </div>
         </div>
@@ -124,34 +95,55 @@
 
     <dialog id="record_page" class="modal">
         <div id="modal-content">
-            <span id = "close">×</span>
+            <span id="close">×</span>
             <p>這是記錄頁面的彈出視窗！</p>
-            <select>
-                <option value="">請選擇檔案</option>
+            <label for="file-select">Choose a file:</label>
+            <select id="file-select">
+                {% if files %}
+                    {% for file in files %}
+                        <option value="{{ file }}">{{ file }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option value="" disabled>沒有檔案</option>
+                {% endif %}
             </select>
         </div>
-        <div style="display: flex; justify-content: space-between; width: 100%; height: 75%;">
-            <div id = "float_data" style="display: flex; flex-direction: column;">
-                <p>TIME</p>
-                <div style="display: flex; align-items: center; flex-direction: row;">
-                    <div id = "left" class="LRdata">
-                        <p class="top">COURSE</p>
-                        <P class="botton">PRESSURE ALTITUDE</P>
-                    </div>
-                    <div id = "right" class="LRdata">
-                        <p class="top">DEPRESSION</p>
-                        <p class="botton">RELATIVE ALTITUDE</p>
-                    </div>
+        <div class="content-container">
+            <div id="float_data">
+                <div class="data-section">
+                    <p class="title">TIME</p>
+                    <p class="content" id="time-content">時間</p>
                 </div>
-                <p>COORDINATE</p>
+                <div class="data-section">
+                    <p class="title">COURSE</p>
+                    <p class="content">航向</p>
+                </div>
+                <div class="data-section">
+                    <p class="title">PRESSURE ALTITUDE</p>
+                    <p class="content">壓力高度</p>
+                </div>
+                <div class="data-section">
+                    <p class="title">DEPRESSION</p>
+                    <p class="content">氣壓</p>
+                </div>
+                <div class="data-section">
+                    <p class="title">RELATIVE ALTITUDE</p>
+                    <p class="content">相對高度</p>
+                </div>
+                <div class="data-section">
+                    <p class="title">COORDINATE</p>
+                    <p class="content">坐標</p>
+                </div>
+                <div class="data-section">
+                    <p class="title">ADJUST VALUE</p>
+                    <input type="range" id="slider" name="slider" min="0" max="100" value="50" oninput="updateSliderValue(this.value)">
+                    <p class="content" id="slider-value">50</p>
+                </div>
             </div>
-            <div id = "float_map">
-                <p>123</p>
-            </div>
+            <div id="float_map"></div>
         </div>
     </dialog>
-</body>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-
+</body>
 
 </html>
