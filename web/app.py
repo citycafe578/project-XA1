@@ -37,7 +37,7 @@ def get_file():
     file_path = os.path.join("web", "record")
     files = os.listdir(file_path)
     return jsonify(files)
-    return jsonify(files)
+
 
 @app.route("/get_file_content", methods=['POST'])
 def get_file_content():
@@ -46,6 +46,7 @@ def get_file_content():
     with open(file_path, 'r') as file:
         content = file.readlines()
     return jsonify(content)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
