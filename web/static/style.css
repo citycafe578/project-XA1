@@ -56,12 +56,17 @@ html {
 
 .item{
   flex: 1;
-  width: 100%; /* 設置寬度為 100% */
+  width: 60%; /* 設置寬度為 100% */
   height: auto; /* 自動調整高度以保持比例 */
   max-width: 300px; /* 設置最大寬度，根據需要調整 */
   display: block;
   margin: 0 auto; /* 使圖片居中 */
 }
+
+/* #course_photo{
+  height: 10%;
+  width: auto;
+} */
 
 #digital_data {
   display: flex;
