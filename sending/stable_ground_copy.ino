@@ -44,12 +44,12 @@ void setup() {
 }
 
 void loop() {
-    if (Serial.available() >= sizeof(float) * 4) {  // 假設我們知道要接收的浮點數陣列長度為 4
-        float receivedFloats[4];
-        Serial.readBytes((char*)receivedFloats, sizeof(receivedFloats));
-        Serial.print("Received floats: ");
+    if (Serial.available() >= sizeof(int) * 4) {  // 假設我們知道要接收的整數陣列長度為 4
+        int receivedInts[4];
+        Serial.readBytes((char*)receivedInts, sizeof(receivedInts));
+        Serial.print("Received ints: ");
         for (int i = 0; i < 4; i++) {
-            Serial.print(receivedFloats[i]);
+            Serial.print(receivedInts[i]);
             Serial.print(" ");
         }
         Serial.println();
