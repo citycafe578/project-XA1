@@ -98,7 +98,7 @@ html {
   justify-content: center;
   font-size: 250%;
   padding: 20px;
-  font-family: "Lucida Console";
+  font-family: "Arial";
   font-weight: 800;
   color: rgb(174, 173, 173);
   height: 60%;
@@ -220,7 +220,7 @@ html {
   font-family: "Lucida Console";
 }
 
-.switch {
+/* .switch {
   position: relative;
   display: inline-block;
   width: 60px;
@@ -265,4 +265,4 @@ html {
 
 .toggleSwitch:checked + .slider:before {
   transform: translateX(26px);
-}
+} */
