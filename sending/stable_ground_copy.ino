@@ -5,7 +5,6 @@ RF24 radio(7, 8);
 const byte address[6] = "00001";
 char receivedData[32] = {0};
 bool isSynced = false;
-String received_text;
 
 void setup() {
     Serial.begin(115200);
@@ -23,6 +22,7 @@ void setup() {
     radio.openWritingPipe(address);
     radio.openReadingPipe(1, address);
     radio.stopListening();
+
 
     Serial.println("Arduino: Sending SYNC...");
     const char syncMsg[] = "SYNC";
@@ -44,16 +44,67 @@ void setup() {
 }
 
 void loop() {
-    if (Serial.available() >= sizeof(int) * 4) {  // 假設我們知道要接收的整數陣列長度為 4
-        int receivedInts[4];
-        Serial.readBytes((char*)receivedInts, sizeof(receivedInts));
-        Serial.print("Received ints: ");
-        for (int i = 0; i < 4; i++) {
-            Serial.print(receivedInts[i]);
-            Serial.print(" ");
+    if(Serial.available()){
+        radio.stopListening();
+        char sendData[32] = {0};
+        Serial.readBytesUntil('\n', sendData, 31); 
+        Serial.print("Sending data: ");
+        Serial.println(sendData);
+
+        bool success = radio.write(&sendData, sizeof(sendData));
+
+        if (success) {
+            Serial.println("Arduino: Command sent, waiting for ACK...");
+            radio.startListening();
+            unsigned long startTime = millis();
+            bool receivedAck = false;
+
+            while (millis() - startTime < 50) {
+                if (radio.available()) {
+                    radio.read(&receivedData, sizeof(receivedData));
+                    if (strcmp(receivedData, "ACK") == 0) {
+                        receivedAck = true;
+                        Serial.println("Arduino: ACK received!");
+                        break;
+                    }
+                }
+            }
+
+            if (!receivedAck) {
+                Serial.println("Arduino: No ACK, resending...");
+            }
+            radio.stopListening();
+        } else {
+            Serial.println("Arduino: Command send failed!");
         }
-        Serial.println();
     }
-    
+    const char cmd[] = "CMD:DATA";
+    Serial.println("Arduino: Sending command...");
+    bool success = radio.write(&cmd, sizeof(cmd));
+
+    if (success) {
+        Serial.println("Arduino: Command sent, waiting for ACK...");
+        radio.startListening();
+        unsigned long startTime = millis();
+        bool receivedAck = false;
+
+        while (millis() - startTime < 50) {
+            if (radio.available()) {
+                radio.read(&receivedData, sizeof(receivedData));
+                if (strcmp(receivedData, "ACK") == 0) {
+                    receivedAck = true;
+                    Serial.println("Arduino: ACK received!");
+                    break;
+                }
+            }
+        }
+
+        if (!receivedAck) {
+            Serial.println("Arduino: No ACK, resending...");
+        }
+        radio.stopListening();
+    } else {
+        Serial.println("Arduino: Command send failed!");
+    }
     delay(250);
 }
