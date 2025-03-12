@@ -1,0 +1,4 @@
+Pipfile
+.logs/
+venv/
+sending/__pycache__
