@@ -24,7 +24,6 @@ void setup() {
     radio.openReadingPipe(1, address);
     radio.stopListening();
 
-
     Serial.println("Arduino: Sending SYNC...");
     const char syncMsg[] = "SYNC";
     radio.write(&syncMsg, sizeof(syncMsg));
@@ -45,38 +44,15 @@ void setup() {
 }
 
 void loop() {
-    if(Serial.available()){
-        String data = Serial.readStringUntil('\n');
-        char sendData[64];
-        data.toCharArray(sendData, 64);
-        // const char cmd[] = "CMD:DATA";
-        Serial.println("Arduino: Sending command...");
-        bool success = radio.write(&sendData, sizeof(sendData));
-
-        if (success) {
-            Serial.println("Arduino: Command sent, waiting for ACK...");
-            radio.startListening();
-            unsigned long startTime = millis();
-            bool receivedAck = false;
-
-            while (millis() - startTime < 50) {
-                if (radio.available()) {
-                    radio.read(&receivedData, sizeof(receivedData));
-                    if (strcmp(receivedData, "ACK") == 0) {
-                        receivedAck = true;
-                        Serial.println("Arduino: ACK received!");
-                        break;
-                    }
-                }
-            }
-
-            if (!receivedAck) {
-                Serial.println("Arduino: No ACK, resending...");
-            }
-            radio.stopListening();
-        } else {
-            Serial.println("Arduino: Command send failed!");
+    if (Serial.available() >= sizeof(float) * 4) {  // 假設我們知道要接收的浮點數陣列長度為 4
+        float receivedFloats[4];
+        Serial.readBytes((char*)receivedFloats, sizeof(receivedFloats));
+        Serial.print("Received floats: ");
+        for (int i = 0; i < 4; i++) {
+            Serial.print(receivedFloats[i]);
+            Serial.print(" ");
         }
+        Serial.println();
     }
     
     delay(250);
