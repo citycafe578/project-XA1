@@ -16,12 +16,13 @@ void setup() {
         while (1);
     }
 
-    radio.setPALevel(RF24_PA_HIGH);
-    radio.setDataRate(RF24_2MBPS);
     radio.setChannel(100);
+    radio.setDataRate(RF24_250KBPS);
+    radio.setAutoAck(false);
+    radio.setPALevel(RF24_PA_LOW);
     radio.openWritingPipe(address);
-    radio.openReadingPipe(1, address);
     radio.stopListening();
+    Serial.println("RF24 transmitter ready");
 
 
     Serial.println("Arduino: Sending SYNC...");
