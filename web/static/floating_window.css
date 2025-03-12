@@ -39,22 +39,28 @@
     width: 47%;
     border-radius: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* 修改為橫向排列 */
     justify-content: space-around;
     align-items: center;
     padding: 20px;
     color: white;
 }
 
+.data-section-container {
+    display: flex;
+    flex-direction: column; /* 修改為縱向排列 */
+    justify-content: space-between;
+    width: 48%;
+}
+
 .data-section {
-    width: 100%;
     text-align: center;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .title {
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .content {
