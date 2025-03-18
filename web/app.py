@@ -1,12 +1,8 @@
 from flask import Flask, render_template, jsonify, request
 import datetime
-import update
 import os
-import sys
 
-# sys.path.append('../sending')
-# import main
-
+received_data = []  # 用於存儲接收到的資料
 app = Flask(__name__)
 path = None
 
@@ -24,12 +20,10 @@ def record():
     path = os.path.join("web", "record", name)
     with open(path, 'w') as file:
         file.write('start\n')
-    update.start_thread(path)
     return jsonify(success=True, message="File created successfully", file_path=path)
 
 @app.route("/stop_record", methods=['GET'])
 def stop_record():
-    update.stop_update()
     return jsonify(success=True, message="File stopped successfully")
 
 @app.route("/get_file")
@@ -37,7 +31,6 @@ def get_file():
     file_path = os.path.join("web", "record")
     files = os.listdir(file_path)
     return jsonify(files)
-
 
 @app.route("/get_file_content", methods=['POST'])
 def get_file_content():
@@ -47,6 +40,23 @@ def get_file_content():
         content = file.readlines()
     return jsonify(content)
 
+
+@app.route("/data", methods=['POST'])
+def receive_data():
+    global received_data, path
+    data = request.json.get("data")
+    if data:
+        received_data.append(data)
+        print(f"Received data from ESP32: {data}")
+        if path:
+            with open(path, 'a') as file:
+                file.write(data + '\n')
+        return jsonify(success=True, message="Data received")
+    return jsonify(success=False, message="No data received")
+
+@app.route("/get_data", methods=['GET'])
+def get_data():
+    return jsonify(received_data)
 
 if __name__ == "__main__":
     app.run(debug=True)
