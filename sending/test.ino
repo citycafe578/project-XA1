@@ -43,10 +43,7 @@ void loop() {
         radio.read(&receivedData, sizeof(receivedData));
         Serial.print("Received from RF24: ");
         Serial.println(receivedData);
-<<<<<<< HEAD
         Serial.write(receivedData);
-=======
->>>>>>> 6329b492508920d4d8f1800f2e73e574061464f0
 
         const char ackMsg[] = "ACK";
         radio.stopListening();
