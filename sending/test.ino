@@ -1,15 +1,14 @@
 #include <SPI.h>
 #include <RF24.h>
 
-RF24 radio(7, 8);  // 定義 RF24 模組的 CE 和 CSN 引腳
-const byte address[6] = "00001";  // 定義通訊地址
-char receivedData[32] = {0};  // 用於存儲接收到的資料
+RF24 radio(7, 8);
+const byte address[6] = "00001";
+char receivedData[32] = {0}; 
 
 void setup() {
-    Serial.begin(9600);  // 初始化 Serial 通訊
+    Serial.begin(9600);
     Serial.println("Arduino Initialized!");
 
-    // 初始化 RF24 模組
     if (!radio.begin()) {
         Serial.println("Arduino: Radio hardware is not responding!");
         while (1);
@@ -20,7 +19,7 @@ void setup() {
     radio.setChannel(100);
     radio.openWritingPipe(address);
     radio.openReadingPipe(1, address);
-    radio.startListening();  // 開始監聽
+    radio.startListening();
 }
 
 void loop() {
