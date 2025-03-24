@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 import datetime
 import os
+import update
 
 received_data = []  # 用於存儲接收到的資料
 app = Flask(__name__)
@@ -20,6 +21,7 @@ def record():
     path = os.path.join("web", "record", name)
     with open(path, 'w') as file:
         file.write('start\n')
+        update.update(path)
     return jsonify(success=True, message="File created successfully", file_path=path)
 
 @app.route("/stop_record", methods=['GET'])
