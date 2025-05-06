@@ -3,8 +3,7 @@
 
 RF24 radio(7, 8);
 const byte address[6] = "00001";
-char droneData[32] = { 0 };
-char linuxData[32] = { 0 };
+char receivedData[32] = { 0 };
 bool isSynced = false;
 
 void setup() {
@@ -23,60 +22,32 @@ void setup() {
   radio.setChannel(100);
   radio.openWritingPipe(address);
   radio.openReadingPipe(1, address);
-  radio.stopListening();
-
-
-  Serial.println("Arduino: Sending SYNC...");
-  const char syncMsg[] = "SYNC";
-  bool success = (radio.write(&syncMsg, sizeof(syncMsg)));
-  if(success){
-    Serial.println("SYNC sent successfully");
-  }else{
-    Serial.println("SYNC send failed");
-  }
-
-  radio.startListening();
-  unsigned long startTime = millis();
-  while (millis() - startTime < 100) {
-    if (radio.available()) {
-      radio.read(&droneData, sizeof(droneData));
-      if (strcmp(droneData, "READY") == 0) {
-        isSynced = true;
-        Serial.println("Arduino: Drone is READY!");
-        break;
-      }
-    }
-  }
+  radio.setAutoAck(false);
   radio.stopListening();
 }
 
 void loop() {
-  // Serial.readBytesUntil('\n', linuxData, 31);
-  linuxData[0] = 'A';  //測試用
-  Serial.print("Received from Python: ");
-  Serial.println(linuxData);
-  bool success = radio.write(&linuxData, sizeof(linuxData));
+  // char sendData[32] = {};
+  // Serial.readBytesUntil('\n', sendData, 31);
+  // Serial.print("Received from Python: ");
+  // Serial.println(sendData);
+  char sendData[32] = "0254 0333 0456 0444";
+  bool success = radio.write(&sendData, sizeof(sendData));
 
   if (success) {
+    Serial.println("send successfully");
     radio.startListening();
     unsigned long startTime = millis();
-    bool receivedAck = false;
-
     while (millis() - startTime < 50) {
       if (radio.available()) {
-        radio.read(&droneData, sizeof(droneData));
-        Serial.print("Received from Drone: ");
-        Serial.println(droneData);
-        receivedAck = true;
+        radio.read(&receivedData, sizeof(receivedData));
+        Serial.print("Receive: ");
+        Serial.println(receivedData);
       }
-    }
-
-    if (!receivedAck) {
-      Serial.println("No data back!");
     }
     radio.stopListening();
   } else {
-    Serial.println("Arduino: Command send failed!");
+    Serial.println("send failed!");
   }
-  delay(500);
+  delay(100);
 }
