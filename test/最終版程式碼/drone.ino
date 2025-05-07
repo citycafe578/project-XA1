@@ -27,6 +27,9 @@ const byte address[6] = "00001";
 char receivedData[32] = { 0 };
 bool isSynced = false;
 
+String geohash = "INVALID";
+int satallites_value = 0;
+int hdop_value = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -133,27 +136,30 @@ void displayInfo() {
     Serial.print(lon, 6);
 
     // 轉換 Geohash
-    String geohash = encodeGeohash(lat, lon, 6);
-    Serial.print(F("  | Geohash: "));
-    Serial.print(geohash);
+    geohash = encodeGeohash(lat, lon, 6);
+    // Serial.print(F("  | Geohash: "));
+    // Serial.print(geohash);
   } else {
-    Serial.print(F("INVALID"));
+    // Serial.print(F("INVALID"));
+    geohash = "INVALID";
   }
 
-  Serial.print(F("  | Satellites: "));
-  Serial.print(gps.satellites.value());
+  // Serial.print(F("  | Satellites: "));
+  // Serial.print(gps.satellites.value());
 
-  Serial.print(F("  | HDOP: "));
-  Serial.print(gps.hdop.value());
+  // Serial.print(F("  | HDOP: "));
+  // Serial.print(gps.hdop.value());
 
-  Serial.print(F("  | UTC Time: "));
+  // Serial.print(F("  | UTC Time: "));
   if (gps.time.isValid()) {
-    Serial.printf("%02d:%02d:%02d", gps.time.hour(), gps.time.minute(), gps.time.second());
+    // Serial.printf("%02d:%02d:%02d", gps.time.hour(), gps.time.minute(), gps.time.second());
   } else {
-    Serial.print(F("INVALID"));
+    // Serial.print(F("INVALID"));
   }
 
   Serial.println();
+  satallites_value = gps.satellites.value();
+  hdop_value = gps.hdop.value();
 }
 
 String encodeGeohash(double lat, double lon, int precision) {
@@ -236,7 +242,7 @@ void gy511() {
   // Serial.print("\tYaw: ");
   // Serial.println(heading);
 
-  String combined = String(pitch) + " " + String(roll) + " " + String(heading);
+  String combined = String(pitch) + " " + String(roll) + " " + String(heading)+ " " + String(satallites_value)+ " " + String(hdop_value)+ " " + geohash;
   combined.toCharArray(send_data, sizeof(send_data));
   Serial.println(send_data);
 }
