@@ -29,7 +29,7 @@ class Joysticker:
             if event.type == QUIT:
                 runnng = False
         data0, data1, data2, data3 = self.read()
-        print (data0, data1, data2, data3)
+        # print (data0, data1, data2, data3)
         pygame.time.Clock().tick(50)
         return [data0, data1, data2, data3]
         pygame.quit()

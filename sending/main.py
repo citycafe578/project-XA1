@@ -5,6 +5,9 @@ import requests
 import subprocess
 import webbrowser
 from joystick import Joysticker
+import queue
+
+data_queue = queue.Queue()
 
 def start_flask_server():
     flask_process = subprocess.Popen(["python", "web/app.py"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -30,17 +33,11 @@ def send_data(ser):
 def receive_data(ser):
     try:
         while True:
-            if ser.in_waiting > 0:
-                data_received = ser.readline().decode('utf-8').strip()
-                print(f"Received from Arduino: {data_received}")
-                ser.reset_input_buffer()
-
-                # 傳送資料到 Flask 後端
-                try:
-                    response = requests.post("http://127.0.0.1:5000/data", json={"data": data_received})
-                    print(f"Server response: {response.status_code}")
-                except requests.exceptions.RequestException as e:
-                    print(f"Failed to send data to server: {e}")
+            data = ser.readline().decode('utf-8').strip()
+            if data:
+                print(f"Received: {data}")
+                data_queue.put(data)
+                
     except KeyboardInterrupt:
         print("Serial closed in receive_data")
         ser.close()
@@ -49,7 +46,7 @@ if __name__ == "__main__":
     flask_process = start_flask_server()
     webbrowser.open("http://127.0.0.1:5000")
     joystick_data = Joysticker()
-    ser = serial.Serial("/dev/ttyUSB0", 9600, timeout=1.0)
+    ser = serial.Serial("/dev/ttyUSB0", 115200, timeout=1.0)
     time.sleep(1)
     print("Serial connection established")
 
@@ -57,7 +54,7 @@ if __name__ == "__main__":
     receive_thread = threading.Thread(target=receive_data, args=(ser,))
 
     send_thread.daemon = True
-    receive_thread.daemon = True
+    receive_thread.daemon = True 
 
     send_thread.start()
     receive_thread.start()
