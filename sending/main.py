@@ -37,7 +37,7 @@ def receive_data(ser):
             if data:
                 print(f"Received: {data}")
                 data_queue.put(data)
-                
+                print(f"Data added to queue: {data}")
     except KeyboardInterrupt:
         print("Serial closed in receive_data")
         ser.close()

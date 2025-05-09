@@ -1,19 +1,14 @@
 from flask import Flask, render_template, jsonify, request
 import datetime
 import os
-import update
-import sys
-import time
+from queue import Queue  # 引入 Queue
 from threading import Event
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../sending')))
-from main import data_queue
-from update import stop_update
-
-stop_record = Event()
+from update import start_thread, stop_update
 
 app = Flask(__name__)
 path = None
+data_queue = Queue()
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -27,10 +22,7 @@ def record():
     now = datetime.datetime.now()
     name = f"{now.date()}_{now.strftime('%H-%M-%S')}.txt"
     path = os.path.join("web", "record", name)
-    with open(path, 'w') as file:
-        file.write('start\n')
-        data = data_queue.get()  
-        update.update(path, data)
+    start_thread(path, data_queue)
     return jsonify(success=True, message="File created successfully", file_path=path)
 
 @app.route("/stop_record", methods=['GET'])
