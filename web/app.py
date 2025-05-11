@@ -1,10 +1,12 @@
 from flask import Flask, render_template, jsonify, request
 import datetime
 import os
-from queue import Queue  # 引入 Queue
+from queue import Queue
 from threading import Event
+from shared import data_queue
 
 from update import start_thread, stop_update
+
 
 app = Flask(__name__)
 path = None
@@ -44,7 +46,13 @@ def get_file_content():
         content = file.readlines()
     return jsonify(content)
 
-    
+@app.route("/get_queue_data", methods=['GET'])
+def get_queue_data():
+    if not data_queue.empty():
+        data = data_queue.get()
+        return jsonify(success=True, data=data)
+    else:
+        return jsonify(success=False, message="Queue is empty")
 
 if __name__ == "__main__":
     app.run(debug=True)

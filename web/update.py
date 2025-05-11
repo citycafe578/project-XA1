@@ -15,6 +15,7 @@ def update(path, data_queue):
             if not data_queue.empty():
                 data = data_queue.get()
                 file.write(f"{timestamp} {data}\n")
+                print(f"Written to file: {timestamp} {data}")
             else:
                 file.write(f"{timestamp}\n")
             file.flush()

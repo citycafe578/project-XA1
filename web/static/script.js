@@ -160,3 +160,17 @@ function checkTime(i){
     }
     return i;
 }
+
+function fetchQueueData() {
+    fetch('/get_queue_data')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Queue Data:", data.data);
+            } else {
+                console.log("Queue is empty");
+            }
+        })
+        .catch(error => console.error("Error fetching queue data:", error));
+}
+setInterval(fetchQueueData, 2000);
