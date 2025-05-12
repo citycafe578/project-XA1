@@ -11,12 +11,6 @@ from shared import data_queue
 sys.path.append(os.path.join(os.path.dirname(__file__), "web"))
 import app
 
-
-data_queue = queue.Queue()
-# def start_flask_server():
-#     flask_process = subprocess.Popen(["python", "../web/app.py"])
-#     return flask_process
-
 def stop_flask_server(flask_process):
     flask_process.terminate()
     flask_process.wait()
@@ -28,16 +22,17 @@ def receive_data(ser):
             data = ser.readline().decode('utf-8').strip()
             if data:
                 print(f"Received: {data}")
-                data_queue.put(data)  # 將資料放入 queue
-                print(f"Data added to queue: {data}")
+                data_queue.put(data)
+                # print(f"Data added to queue: {data}")
     except KeyboardInterrupt:
         print("Serial closed in receive_data")
         ser.close()
 
 if __name__ == "__main__":
-    # flask_process = start_flask_server()
+    flask_thread = threading.Thread(target=lambda: app.app.run(debug=True, use_reloader=False))
+    flask_thread.daemon = True
+    flask_thread.start()
     webbrowser.open("http://127.0.0.1:5000")
-    app.app.run(debug=True)
 
     ser = serial.Serial("/dev/ttyUSB0", 115200, timeout=1.0)
     time.sleep(1)
@@ -53,4 +48,3 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("Program terminated.")
         ser.close()
-        stop_flask_server(flask_process)

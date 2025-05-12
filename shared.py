@@ -1,2 +1,2 @@
-import queue
-data_queue = queue.Queue()
+from queue import Queue
+data_queue = Queue()

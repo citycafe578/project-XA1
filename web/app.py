@@ -3,14 +3,16 @@ import datetime
 import os
 from queue import Queue
 from threading import Event
-# from shared import data_queue
+import logging
+from shared import data_queue
 
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 from update import start_thread, stop_update
 
 
 app = Flask(__name__)
 path = None
-data_queue = Queue()
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -48,8 +50,6 @@ def get_file_content():
 
 @app.route("/get_queue_data", methods=['GET'])
 def get_queue_data():
-    if not data_queue.empty():
-        data = data_queue.get()
-        return jsonify(success=True, data=data)
-    else:
-        return jsonify(success=False, message="Queue is empty")
+    data = data_queue.get()
+    return jsonify(success=True, data=data)
+    
