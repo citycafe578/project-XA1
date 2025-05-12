@@ -4,13 +4,18 @@ import threading
 import subprocess
 import webbrowser
 import queue
+import os
+import sys
 from shared import data_queue
 
-data_queue = queue.Queue()  # 全域變數 queue
+sys.path.append(os.path.join(os.path.dirname(__file__), "web"))
+import app
 
-def start_flask_server():
-    flask_process = subprocess.Popen(["python", "web/app.py"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    return flask_process
+
+data_queue = queue.Queue()
+# def start_flask_server():
+#     flask_process = subprocess.Popen(["python", "../web/app.py"])
+#     return flask_process
 
 def stop_flask_server(flask_process):
     flask_process.terminate()
@@ -30,8 +35,10 @@ def receive_data(ser):
         ser.close()
 
 if __name__ == "__main__":
-    flask_process = start_flask_server()
+    # flask_process = start_flask_server()
     webbrowser.open("http://127.0.0.1:5000")
+    app.app.run(debug=True)
+
     ser = serial.Serial("/dev/ttyUSB0", 115200, timeout=1.0)
     time.sleep(1)
     print("Serial connection established")

@@ -3,7 +3,7 @@ import datetime
 import os
 from queue import Queue
 from threading import Event
-from shared import data_queue
+# from shared import data_queue
 
 from update import start_thread, stop_update
 
@@ -53,6 +53,3 @@ def get_queue_data():
         return jsonify(success=True, data=data)
     else:
         return jsonify(success=False, message="Queue is empty")
-
-if __name__ == "__main__":
-    app.run(debug=True)

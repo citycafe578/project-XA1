@@ -8,9 +8,9 @@ class Joysticker:
         pygame.init()
         pygame.joystick.init()
         
-        if pygame.joystick.get_count() == 0:
-            print("No joystick detected")
-            quit()
+        # if pygame.joystick.get_count() == 0:
+        #     print("No joystick detected")
+        #     quit()
     
         self.joystick = pygame.joystick.Joystick(0)
         self.joystick.init()
