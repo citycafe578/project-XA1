@@ -3,9 +3,8 @@ import datetime
 import os
 from queue import Queue
 from threading import Event
-# from shared import data_queue
-
 from update import start_thread, stop_update
+from decode import decode
 
 
 app = Flask(__name__)
@@ -49,7 +48,7 @@ def get_file_content():
 @app.route("/get_queue_data", methods=['GET'])
 def get_queue_data():
     if not data_queue.empty():
-        data = data_queue.get()
+        data = decode(data_queue.get())
         return jsonify(success=True, data=data)
     else:
         return jsonify(success=False, message="Queue is empty")

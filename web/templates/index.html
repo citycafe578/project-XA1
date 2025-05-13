@@ -69,29 +69,17 @@
             <img src="{{ url_for('static', filename='imgs/航向.png') }}" alt="course photo" class="item" id="course_photo" />
         </div>
         <div id="cam_btn">
-            <div class="btn_and_word">
+            <div class="gps_status">
                 <a>NUMBER OF SATELLITES</a>
-                <!-- <label class="switch" id="webcam">
-                    <input type="checkbox" class="toggleSwitch">
-                    <span class="slider"></span>
-                </label> -->
-                <a>NONE</a>
+                <a id="sat_num">NONE</a>
             </div>
-            <div class="btn_and_word">
+            <div class="gps_status">
                 <a>COMMUNICATION QUALITY</a>
-                <!-- <label class="switch" id="light">
-                    <input type="checkbox" class="toggleSwitch">
-                    <span class="slider"></span>
-                </label> -->
-                <a>NONE</a>
+                <a id="sat_quality">NONE</a>
             </div>
-            <div class="btn_and_word">
-                <a>FIX MODE</a>
-                <!-- <label class="switch" id="FPS">
-                    <input type="checkbox" class="toggleSwitch">
-                    <span class="slider"></span>
-                </label> -->
-                <a>NONE</a>
+            <div class="gps_status">
+                <a>SATELLITES MODE</a>
+                <a id="sat_mode">NONE</a>
             </div>
         </div>
     </div>

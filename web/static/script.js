@@ -1,17 +1,3 @@
-// const webcam = document.getElementById("webcam")
-// const light = document.getElementById("light")
-// const FPS = document.getElementById("FPS")
-// const gray_scale = document.getElementById("gray_scale")
-// const image = document.getElementById("stream"); 
-// const imageUrl = "{{ image_url }}";
-// webcam.addEventListener("change", function() {
-//     if (this.checked) {
-//         image.src = "http://192.168.0.106:81/stream";
-//     } else {
-//         image.src = imageUrl;
-//     }
-// });
-
 document.addEventListener("DOMContentLoaded", function(){
     var recordPage = document.getElementById("record_page");
     var closeBtn = document.getElementById("close");
@@ -129,6 +115,43 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     updateFileList();
+
+    function fetchQueueData() {
+        fetch('/get_queue_data')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Queue Data:", data.data);
+                    const depression_img = document.getElementById('depression', 'speed');
+                    depression_img.style.transform = `translateY(${data.data[0]}px`;
+                    const roll_img = document.getElementById('roll');
+                    roll_img.style.transform = `rotate(${data.data[1]}deg)`;
+                    const course_img = document.getElementById('course_photo');
+                    roll_img.style.transform = `rotate(${data.data[2]}deg)`;
+                    document.getElementById('sat_num').textContent = `${data.data[3]}`;
+                    document.getElementById('sat_quality').textContent = `${data.data[4]}`;
+
+                    const latitude = 0
+                    const longitude = 0
+                    if(data.data[5] == 0 && data.data[5] == 0){
+                        document.getElementById('sat_mode').textContent = `${Disable}`;
+                    }else{
+                        document.getElementById('sat_mode').textContent = `${Enable}`;
+                        latitude = data.data[5];
+                        longitude = data.data[6];
+                    }
+                    if (map) {
+                        map.setView([latitude, longitude], 13);
+                    }
+                } else {
+                    console.log("Queue is empty");
+                }
+            })
+            .catch(error => console.error("Error fetching queue data:", error));
+    }
+
+    setInterval(fetchQueueData, 200);
+    initializeMap();
 });
 
 const record = document.getElementById("record");
@@ -160,17 +183,3 @@ function checkTime(i){
     }
     return i;
 }
-
-function fetchQueueData() {
-    fetch('/get_queue_data')
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("Queue Data:", data.data);
-            } else {
-                console.log("Queue is empty");
-            }
-        })
-        .catch(error => console.error("Error fetching queue data:", error));
-}
-setInterval(fetchQueueData, 2000);

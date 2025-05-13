@@ -211,7 +211,7 @@ html {
   object-fit: contain;
 }
 
-.btn_and_word {
+.gps_status {
   display: flex;
   justify-content: space-between;
   align-items: center;
