@@ -53,6 +53,17 @@ def get_file_content():
 def get_queue_data():
     if not data_queue.empty():
         data = data_queue.get()
-        return jsonify(success=True, data=data)
+        return jsonify(success=True, data=decode(data, 0))
     else:
         return jsonify(success=False, message="Queue is empty")
+    
+
+@app.route("/decode_data", methods=['POST'])
+def decode_data():
+    try:
+        raw_data = request.json.get('data')
+        time_mode = request.json.get('time_mode', 0)
+        decoded_data = decode(raw_data, time_mode)
+        return jsonify(success=True, decoded_data=decoded_data)
+    except Exception as e:
+        return jsonify(success=False, error=str(e))

@@ -54,8 +54,38 @@ document.addEventListener("DOMContentLoaded", function(){
         })
         .then(response => response.json())
         .then(data => {
-            fileContent = data;
-            updateSliderValue(slider.value);
+            if (data && data.length > 0) {
+                fileContent = [];
+                data.forEach(rawData => {
+                    fetch("/decode_data", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ data: rawData, time_mode: 0 })
+                    })
+                    .then(response => response.json())
+                    .then(decodedResponse => {
+                        if (decodedResponse.success) {
+                            console.log("Decoded Data:", decodedResponse.decoded_data);
+                            fileContent.push(decodedResponse.decoded_data);
+                            updateSliderValue(slider.value);
+                            document.getElementById('time-content').textContent = `${data.data[0]}`;
+                            document.getElementById('pitch_content').textContent = `${data.data[1]}`;
+                            document.getElementById('sat_num_content').textContent = `${data.data[4]}`;
+                            document.getElementById('sat_quality_content').textContent = `${data.data[5]}`;
+                            document.getElementById('longitude_content').textContent = `${data.data[6]}`;
+                            document.getElementById('latitude_content').textContent = `${data.data[7]}`;
+
+                        } else {
+                            console.error("Error decoding data:", decodedResponse.error);
+                        }
+                    })
+                    .catch(error => console.error("Error fetching decoded data:", error));
+                });
+            } else {
+                console.error("No data found in file.");
+            }
         })
         .catch(error => console.error("Error fetching file content:", error));
     });
